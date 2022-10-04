@@ -9,12 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.2",
     "expo": "~46.0.9",
+    "expo-font": "~10.2.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
+    "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "expo-checkbox": "~2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
