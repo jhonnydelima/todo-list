@@ -1,39 +1,48 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1A1A1A",
-    padding: 24,
+    backgroundColor: THEME.COLORS.GRAY_600,
   },
   header: {
     width: '100%',
     height: 173,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: THEME.COLORS.GRAY_700,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  body: {
+    paddingHorizontal: 24,
+    marginTop: -25,
   },
   form: {
     width: '100%',
     flexDirection: 'row',
     marginBottom: 32,
-    marginTop: -25,
   },
   input: {
     flex: 1,
     height: 54,
-    backgroundColor: "#262626",
+    backgroundColor: THEME.COLORS.GRAY_500,
     borderRadius: 8,
     padding: 16,
-    fontSize: 16,
-    color: "#F2F2F2",
-    marginRight: 4
+    fontFamily: THEME.FONT_FAMILY.REGULAR,
+    fontSize: THEME.FONT_SIZE.LG,
+    color: THEME.COLORS.GRAY_300,
+    marginRight: 4,
+  },
+  onFocusInput: {
+    borderColor: THEME.COLORS.PURPLE_DARK,
+    borderWidth: 1,
+    color: THEME.COLORS.GRAY_100,
   },
   addButton: {
     width: 52,
     height: 52,
     borderRadius: 8,
-    backgroundColor: '#1E6F9F',
+    backgroundColor: THEME.COLORS.BLUE_DARK,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -42,24 +51,48 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#333',
-    marginBottom: 16, // REMOVER
+    borderBottomColor: THEME.COLORS.GRAY_400,
   },
   counter: {
     flexDirection: 'row',
   },
   counterText: {
-    fontSize: 14,
-    fontWeight: '700',
+    fontSize: THEME.FONT_SIZE.MD,
+    fontFamily: THEME.FONT_FAMILY.BOLD,
     marginRight: 8,
   },
-  counterNumber: {
-    color: '#D9D9D9'
+  counterNumberContainer: {
+    width: 25,
+    height: 20,
+    backgroundColor: THEME.COLORS.GRAY_400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
-
-
+  counterNumber: {
+    color: THEME.COLORS.GRAY_200,
+    fontFamily: THEME.FONT_FAMILY.BOLD,
+    fontSize: THEME.FONT_SIZE.SM,
+  },
+  emptyListContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyListImage: {
+    marginTop: 48,
+    marginBottom: 16,
+  },
+  emptyListText: {
+    color: THEME.COLORS.GRAY_300,
+    fontSize: THEME.FONT_SIZE.MD,
+    fontFamily: THEME.FONT_FAMILY.REGULAR,
+    lineHeight: 20,
+  },
   footer: {
     width: '100%',
+    paddingHorizontal: 24,
+    position: 'absolute',
+    bottom: 24,
   },
   footerButtons: {
     flexDirection: 'row',
@@ -71,8 +104,8 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     marginLeft: 8,
-    color: '#F2F2F2',
-    fontSize: 18,
-    fontWeight: '600'
+    color: THEME.COLORS.GRAY_200,
+    fontSize: THEME.FONT_SIZE.LG,
+    fontFamily: THEME.FONT_FAMILY.BOLD,
   },
 });
