@@ -7,6 +7,7 @@ import {
 
 import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
+import { TasksProvider } from './src/contexts/tasks';
 
 export default function App() {
   const [loadedFonts] = useFonts({
@@ -21,8 +22,9 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-
-      {loadedFonts ? <Home /> : <Loading />}
+      <TasksProvider> 
+        {loadedFonts ? <Home /> : <Loading />}
+      </TasksProvider>
     </>
   );
 }

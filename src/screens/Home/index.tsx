@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   Alert,
   Image,
@@ -11,23 +11,24 @@ import {
 import uuid from 'react-native-uuid';
 import { Feather, Ionicons } from '@expo/vector-icons';
 
-import { Task } from '../../components/Task';
+import { Task, TaskProps } from '../../components/Task';
+import { TasksContext } from '../../contexts/tasks';
 
 import { styles } from './styles';
 import { THEME } from '../../theme';
 import LogoImg from '../../assets/logo.png';
 import EmptyListImg from '../../assets/clipboard.png';
 
-interface TaskProps {
-  id: string;
-  description: string;
-}
-
 export function Home() {
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [taskDescription, setTaskDescription] = useState('');
-  const [completedTasks, setCompletedTasks] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
+  const {
+    tasks,
+    setTasks,
+    completedTasks,
+    setCompletedTasks,
+    setAreAllCompleted
+  } = useContext(TasksContext);
 
   function handleFocus() {
     setIsFocused(true);
@@ -44,7 +45,8 @@ export function Home() {
 
     const newTask: TaskProps = {
       id: uuid.v4().toString(),
-      description: taskDescription
+      description: taskDescription,
+      isChecked: false
     };
 
     setTasks(prevState => [
@@ -59,6 +61,12 @@ export function Home() {
       {
         text: "Sim",
         onPress: () => {
+          const isItemChecked = tasks.find(task => task.id === id && task.isChecked === true);
+          
+          if (isItemChecked) {
+            setCompletedTasks(prevState => prevState - 1);
+          }
+
           setTasks(prevState => prevState.filter(task => task.id !== id));
         }
       },
@@ -70,12 +78,30 @@ export function Home() {
   }
 
   function handleRemoveAllTasks() {
-    Alert.alert("Remover", `Remover todas tarefas?`, [
+    Alert.alert("Remover", `Remover todas as tarefas?`, [
       {
         text: "Sim",
         onPress: () => {
           setTasks([]);
           setCompletedTasks(0);
+        }
+      },
+      {
+        text: "Não",
+        style: "cancel"
+      }
+    ]);
+  }
+
+  function handleCompleteAllTasks() {
+    Alert.alert("Concluir", `Concluir todas as tarefas?`, [
+      {
+        text: "Sim",
+        onPress: () => {
+          setAreAllCompleted(true);
+
+
+          // setCompletedTasks(tasks.length);
         }
       },
       {
@@ -131,14 +157,13 @@ export function Home() {
           </View>
         </View>
         
-        <FlatList 
+        <FlatList
           data={tasks}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <Task 
-              description={item.description}
-              setCounter={setCompletedTasks}
-              onRemove={() => handleRemoveTask(item.id)} 
+              item={item}
+              onRemove={() => handleRemoveTask(item.id)}
             />
           )}
           showsVerticalScrollIndicator={false}
@@ -160,7 +185,7 @@ export function Home() {
         <View style={styles.footer}>
           <TouchableOpacity
             style={[styles.footerButtons, { backgroundColor: THEME.COLORS.PURPLE_DARK }]}
-            // onPress={handleRemoveAllTasks}
+            onPress={handleCompleteAllTasks}
           >
             <Ionicons name="checkmark-done-circle-outline" size={28} color={THEME.COLORS.GRAY_200} />
             <Text style={styles.buttonText}>Concluir todas tarefas</Text>
