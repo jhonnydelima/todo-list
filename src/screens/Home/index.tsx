@@ -94,14 +94,17 @@ export function Home() {
   }
 
   function handleCompleteAllTasks() {
+    if (tasks.length === completedTasks) {
+      Alert.alert("Tarefas já concluídas");
+      return;
+    }
+
     Alert.alert("Concluir", `Concluir todas as tarefas?`, [
       {
         text: "Sim",
         onPress: () => {
           setAreAllCompleted(true);
-
-
-          // setCompletedTasks(tasks.length);
+          setCompletedTasks(tasks.length);
         }
       },
       {

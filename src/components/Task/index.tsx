@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,7 +7,6 @@ import { TasksContext } from '../../contexts/tasks';
 
 import { styles } from './styles';
 import { THEME } from '../../theme';
-import { useEffect } from 'react';
 
 export type TaskProps = {
   id: string;
@@ -47,11 +46,19 @@ export function Task({ item, onRemove }: Props) {
     setTasks(newState);
   }
 
+  function handleCompleteAllTasks() {
+    const newState = tasks.map(task => {
+      setIsChecked(true);
+      return {...task, isChecked: true};
+    });
+    setTasks(newState);
+  }
+
   useEffect(() => {
     if(areAllCompleted) {
-      tasks.forEach(task => handleIsCheck(task.id));
-      setAreAllCompleted(false);
+      handleCompleteAllTasks();
     }
+    setAreAllCompleted(false);
   }, [areAllCompleted]);
 
   return (
