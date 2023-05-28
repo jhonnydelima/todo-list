@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -70,16 +70,16 @@ export function Task({ item, onRemove }: Props) {
         color={isChecked ? THEME.COLORS.PURPLE_DARK : THEME.COLORS.BLUE}
       />
 
-      <Text style={[styles.description, isChecked ? styles.descriptionCompletedTask : undefined]}>
+      <Text style={[styles.description, isChecked ? styles.descriptionCompletedTask : null]}>
         {item.description}
       </Text>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.button}
-        onPress={onRemove}
+        onPress={() => onRemove(item.id)}
       >
         <Ionicons name="trash-outline" size={20} color={THEME.COLORS.GRAY_300} />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   )
 };

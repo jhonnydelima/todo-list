@@ -4,7 +4,7 @@ import {
   Image,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   View,
   FlatList
 } from 'react-native';
@@ -29,14 +29,6 @@ export function Home() {
     setCompletedTasks,
     setAreAllCompleted
   } = useContext(TasksContext);
-
-  function handleFocus() {
-    setIsFocused(true);
-  }
-
-  function handleBlur() {
-    setIsFocused(false);
-  }
 
   function handleAddNewTask() {
     if (taskDescription.length === 0) {
@@ -125,24 +117,24 @@ export function Home() {
       <View style={styles.body}>
         <View style={styles.form}>
           <TextInput
-            style={[styles.input, isFocused ? styles.onFocusInput : {}]}
+            style={[styles.input, isFocused ? styles.onFocusInput : null]}
             placeholder="Adicione uma nova tarefa"
             placeholderTextColor={THEME.COLORS.GRAY_300}
             onChangeText={setTaskDescription}
             value={taskDescription}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             keyboardAppearance='dark'
           />
 
-          <TouchableOpacity style={styles.addButton} onPress={handleAddNewTask}>
+          <Pressable style={styles.addButton} onPress={handleAddNewTask}>
             <Feather name="plus-circle" size={20} color={THEME.COLORS.GRAY_100} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         <View style={[
-          styles.countersContainer,
-          tasks.length > 0 ? {borderBottomWidth: 0} : undefined
+            styles.countersContainer,
+            tasks.length > 0 ? {borderBottomWidth: 0} : null
           ]}
         >
           <View style={styles.counter}>
@@ -184,25 +176,25 @@ export function Home() {
         />
       </View>
 
-      {tasks.length > 0 ? (
+      {tasks.length > 0 &&
         <View style={styles.footer}>
-          <TouchableOpacity
+          <Pressable
             style={[styles.footerButtons, { backgroundColor: THEME.COLORS.PURPLE_DARK }]}
             onPress={handleCompleteAllTasks}
           >
             <Ionicons name="checkmark-done-circle-outline" size={28} color={THEME.COLORS.GRAY_200} />
             <Text style={styles.buttonText}>Concluir todas tarefas</Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
+          <Pressable
             style={[styles.footerButtons, { backgroundColor: THEME.COLORS.DANGER }]}
             onPress={handleRemoveAllTasks}
           >
             <Ionicons name="trash-outline" size={28} color={THEME.COLORS.GRAY_200} />
             <Text style={styles.buttonText}>Remover todas tarefas</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
-      ) : null}
+      }
       
     </View>
   );

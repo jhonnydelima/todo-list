@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 24,
     marginTop: -25,
-    maxHeight: '68%',
+    height: '68%',
   },
   form: {
     width: '100%',
